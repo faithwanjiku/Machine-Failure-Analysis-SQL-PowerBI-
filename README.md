@@ -8,7 +8,7 @@
 **The Goal:** To Analyze 10,000 machine operational records to identify the root causes of failures, establish safe operating parameters, and provide actionable insights to minimize failure rates.
 
 ## Dashboard Preview
-* (Machine_failure_analysis_dashboard.png *
+* (Machine_failure_analysis_dashboard.png) *
 
 ## Key Insights Discovered
 By analyzing the data, I uncovered the exact operational thresholds for the main failure modes:
