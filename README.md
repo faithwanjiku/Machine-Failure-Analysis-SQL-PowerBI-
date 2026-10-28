@@ -10,26 +10,24 @@
 ## Dashboard Preview
 ![Machine Failure Analysis Dashboard](Dashboard/machine_failure_dashboard.png) 
 
-## Key Insights Discovered
+## Key Insights Noted
 By analyzing the data, I uncovered the exact operational thresholds for the main failure modes:
 1. **Tool Wear Failure (TWF):** Failures do not occur before 180 minutes. The risk spikes drastically between **200–240 minutes**.
-2. **Heat Dissipation Failure (HDF):** Occurs almost exclusively when rotational speed drops below **1,380 RPM** combined with a low temperature differential (< 8.6 K).
-3. **Power Failure (PWF):** Occurs at the extremes, not the middle. Machines fail when power drops below **3,500 W** or exceeds **9,000 W**.
-4. **Overstrain Failure (OSF):** A dangerous combination of high tool wear (200+ min) and high torque.
+2. **Heat Dissipation Failure (HDF):** Occurs almost exclusively when rotational speed drops below **1,380 RPM** combined with a low temperature differential less than **8.6 K**.
+3. **Power Failure (PWF):** Occurs at the extremes, not at the middle. Machines fail when power drops below **3,500 Watts** or when it exceeds **9,000 Watts**.
+4. **Overstrain Failure (OSF):** Occurs when there is a combination of high tool wear (200+ min) and high torque.
 
 ## Tech Stack & Methodology
 * **Data Extraction & Transformation:** PostgreSQL
   * Used CTEs (Common Table Expressions) to segment machine states.
   * Used `width_bucket` to create logical ranges for tool wear analysis.
-* **Visualization & DAX:** Power BI
+  * Used `UNION ALL` to combine individual failure mode count into one table. 
+* **Visualization:** Power BI
   * Built a custom sorting model in Power Query to fix text-based bin sorting.
-  * Created DAX measures for dynamic KPI cards (Overall Failure Rate, Avg Tool Wear).
-
-##  Repository Structure
-*  `/sql_queries` - Contains the SQL scripts for data exploration, binning, and view creation.
-*  `/dashboard` - Contains the Power BI `.pbix` file and a PDF export of the dashboard.
+  * Created a custom boxplot using python script to show power consumption extremes.
 
 ##  How to Use
 1. Clone the repository.
-2. Run the SQL scripts in your local PostgreSQL environment to recreate the views.
-3. Open the Power BI file to interact with the dashboard.
+2. Download the dataset from Source [Machine] Data(https://archives.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset)
+3. Run the SQL scripts in your local PostgreSQL environment to recreate the views.
+4. Open the Power BI file to interact with the dashboard.
