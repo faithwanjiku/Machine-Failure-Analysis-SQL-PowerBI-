@@ -1,6 +1,6 @@
 # Machine Failure Analysis and Diagnostics: SQL & Power BI 
 
-**[View the Dashboard](link-to-your-image-or-pdf)** | **[View SQL Queries](link-to-sql-folder)**
+**[View SQL Queries](link-to-sql-folder)**
 
 ## Business Context
 **The Problem:** The production department faced costly unplanned downtime. The Head of Production lacked visibility into the operational health of the machinery and did not know which failure modes were most critical.
