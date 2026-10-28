@@ -1,1 +1,69 @@
+--SQL QUERY--
+--Total row count
+ SELECT COUNT(*) FROM machine_data
+
+--1. Overall failure rate KPI
+ CREATE VIEW overall_failure_rate AS
+ SELECT ROUND(SUM(machine_failure)* 100.0/ COUNT(machine_failure),1) AS avg_failure_rate
+ FROM machine_data;
+
+--2. Total machine records KPI
+CREATE VIEW total_machines AS
+SELECT COUNT(*) AS total_records 
+FROM machine_data;
+
+--3. Average tool wear in minutes KPI
+CREATE VIEW  avg_tool_wear AS
+SELECT ROUND(AVG(tool_wear_min)) AS avg_tool_wear
+FROM machine_data;
+
+ --4. Failure distribution across different failure mode 
+ CREATE VIEW failure_by_mode AS
+ SELECT 'TWF' AS failure_mode, SUM(twf) AS Total_failure FROM machine_data
+ UNION ALL
+ SELECT 'HDF', SUM(hdf) FROM machine_data
+ UNION ALL
+ SELECT 'PWF', SUM(pwf) FROM machine_data
+ UNION ALL
+ SELECT 'OSF', SUM(osf) FROM machine_data
+ UNION ALL
+ SELECT 'RNF', SUM(rnf)FROM machine_data;
+
+--5. Tool wear distribution
+CREATE VIEW tool_wear_distribution AS
+
+WITH twf_data AS (
+SELECT width_bucket(tool_wear_min, 0, 260, 13) AS tool_wear_bin, 
+COUNT (*) AS total_count,
+SUM(twf) AS twf_failures
+FROM machine_data
+GROUP BY tool_wear_bin
+ORDER BY tool_wear_bin)
+
+SELECT tool_wear_bin, ((tool_wear_bin-1)* 20)::text || '-' || (tool_wear_bin *20)::text AS tool_bin_range,
+       total_count,
+	   twf_failures
+FROM twf_data
+ORDER BY tool_bin_range 
+
+--6. Temperature difference is safe to operate in
+CREATE VIEW temp_diff_vs_rpm AS
+SELECT  CASE WHEN hdf = 1 THEN 'Failed'
+            ELSE 'Healthy' END AS status,
+			hdf, (process_temperature_k - air_temperature_k) As temp_difference, rotational_speed_rpm
+FROM machine_data;
+
+--7. Power distribution by failure status
+CREATE VIEW power_by_failure_status AS 
+SELECT  CASE WHEN pwf = 1 THEN 'Failed'
+            ELSE 'Healthy' END,
+	(2 * pi() * rotational_speed_rpm)/60 * torque_nm AS power_w
+FROM machine_data;
+
+--8. Overstrain failure 
+CREATE VIEW torque_vs_tool_wear AS
+SELECT CASE WHEN osf = 1 THEN 'Failed'
+            ELSE 'Healthy' END AS status, 
+			osf,  type, torque_nm, tool_wear_min, (torque_nm * tool_wear_min) AS tear_torque_stress
+FROM machine_data
 
