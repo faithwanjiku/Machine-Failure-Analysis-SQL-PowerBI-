@@ -27,7 +27,6 @@ By analyzing the data, I uncovered the exact operational thresholds for the main
   * Created a custom boxplot using python script to show power consumption extremes.
 
 ##  How to Use
-1. Clone the repository.
-2. Download the dataset from Source [Machine Data](https://archives.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset)
-3. Run the SQL scripts in your local PostgreSQL environment to recreate the views.
-4. Open the Power BI file to interact with the dashboard.
+1. Download the dataset from the official source:[Machine Data](https://archives.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset)
+2. Run the SQL scripts in your local PostgreSQL environment to recreate the database and views.
+3. Open the Power BI file to interact with the dashboard.
