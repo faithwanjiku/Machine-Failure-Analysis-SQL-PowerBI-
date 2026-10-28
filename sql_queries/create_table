@@ -1,1 +1,17 @@
+CREATE Table machine_data(
+uid INT PRIMARY KEY,
+product_id VARCHAR(20),
+type TEXT,
+air_temperature_k NUMERIC(6,2),
+process_temperature_k NUMERIC(6,2),
+rotational_speed_rpm INT,
+torque_nm NUMERIC(6,2),
+tool_wear_min INT,
+machine_failure INT,
+twf SMALLINT,
+hdf SMALLINT,
+pwf SMALLINT,
+osf SMALLINT,
+rnf SMALLINT
+);
 
