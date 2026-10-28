@@ -1,3 +1,5 @@
+--Create the table and import the data
+
 CREATE Table machine_data(
 uid INT PRIMARY KEY,
 product_id VARCHAR(20),
