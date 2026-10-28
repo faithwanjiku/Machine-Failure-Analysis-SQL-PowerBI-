@@ -1,4 +1,6 @@
 --SQL QUERY--
+--EXPLORATORY ANALYSIS AND CREATING VIEWS
+
 --Total row count
  SELECT COUNT(*) FROM machine_data
 
